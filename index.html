@@ -67,18 +67,18 @@ body.light .tgl::after{transform:translateX(18px)}
 .ps{color:var(--text2);font-size:13px;margin-bottom:28px}
 
 /* TOTALS STRIP */
-.ts{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:32px}
+.ts{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:32px}
 .tc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;
   position:relative;overflow:hidden;box-shadow:var(--sh);transition:background var(--t),border-color var(--t)}
 .tc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .tc-blue::before{background:var(--accent)} .tc-green::before{background:var(--inflow)}
 .tc-teal::before{background:#06b6d4}       .tc-orange::before{background:var(--outflow)}
-.tc-red::before{background:var(--unpaid)}
+.tc-red::before{background:var(--unpaid)}  .tc-purple::before{background:#a78bfa}
 .tc-l{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
 .tc-v{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700}
 .tc-blue .tc-v{color:var(--accent)} .tc-green .tc-v{color:var(--inflow)}
 .tc-teal .tc-v{color:#06b6d4}       .tc-orange .tc-v{color:var(--outflow)}
-.tc-red  .tc-v{color:var(--unpaid)}
+.tc-red  .tc-v{color:var(--unpaid)} .tc-purple .tc-v{color:#a78bfa}
 .tc-s{font-size:10px;color:var(--text3);margin-top:3px}
 
 /* PROJECT CARDS */
@@ -202,7 +202,7 @@ td{padding:9px 13px;font-size:12px;color:var(--text1);white-space:nowrap}
   .idx-body{padding:16px 24px!important}
   .eyebrow{color:#1a3a5c!important}
   .ph{font-size:22px!important}
-  .ts{grid-template-columns:repeat(5,1fr)!important}
+  .ts{grid-template-columns:repeat(6,1fr)!important}
   .tc{box-shadow:none!important;border:1px solid #c0d0e0!important;background:#f5f9ff!important}
   .tc::before{display:none!important}
   .tc-v{font-size:16px!important}
@@ -280,6 +280,7 @@ td{padding:9px 13px;font-size:12px;color:var(--text1);white-space:nowrap}
       <div class="tc tc-teal"><div class="tc-l">Cash Collected</div><div class="tc-v">4.19M SAR</div><div class="tc-s">Actual inflow received</div></div>
       <div class="tc tc-orange"><div class="tc-l">Total PO (Outflow)</div><div class="tc-v">10.64M SAR</div><div class="tc-s">Purchase orders total</div></div>
       <div class="tc tc-red"><div class="tc-l">Outstanding Receivables</div><div class="tc-v">5.01M SAR</div><div class="tc-s">Invoices unpaid by client</div></div>
+      <div class="tc tc-purple"><div class="tc-l">Upcoming Billing (VAT Included)</div><div class="tc-v">2.30M SAR</div><div class="tc-s">Vendor bills not yet issued</div></div>
     </div>
     <div class="pg" id="pg"></div>
   </div>
@@ -348,13 +349,13 @@ const projects = [
 ];
 
 const SM = {
-  'Lntecc - 2024 - C-0494':{tp:4846756.63,ti:3877405.33,co:1211689.17,ui:2665716.16,po:2169824.91,tb:1876741.89,pd:1876741.89,nb:293083.02},
-  'Lntecc - 2024 - C-0543':{tp:3209093.77,ti:2567275,   co:2567275,   ui:0,         po:1771710.13,tb:1693262.88,pd:1693262.88,nb:78447.25},
-  'Lntecc - 2025 - C-0667':{tp:471279.2,  ti:471279.2,  co:262747.38, ui:208531.82, po:447714.19, tb:447714.2,  pd:447714.2,  nb:0},
-  'Lntecc - 2025 - C-0668':{tp:269302.4,  ti:269302.4,  co:150141.36, ui:119161.04, po:255836.68, tb:255836.68, pd:255836.68, nb:0},
-  'Lntecc - 2025 - C-0823':{tp:5520000,   ti:552000,    co:0,         ui:552000,    po:3204079.46,tb:1458640.57,pd:636603.31, nb:1745438.89},
-  'Lntecc - 2025 - C-0847':{tp:2931440.85,ti:1465720.43,co:0,         ui:1465720.43,po:2530000,   tb:2530000,   pd:0,         nb:0},
-  'Lntecc - 2026 - C-0967':{tp:282282.45, ti:0,         co:0,         ui:0,         po:257512.76, tb:73027.67,  pd:36513.83,  nb:184485.09},
+  'Lntecc - 2024 - C-0494':{tp:4846756.63,ti:3877405.33,co:1211689.17,ui:2665716.16,po:2169824.91,tb:1876741.89,pd:1876741.89,nb:293083.02,  ub:293083.02},
+  'Lntecc - 2024 - C-0543':{tp:3209093.77,ti:2567275,   co:2567275,   ui:0,         po:1771710.13,tb:1693262.88,pd:1693262.88,nb:78447.25,   ub:78447.25},
+  'Lntecc - 2025 - C-0667':{tp:471279.2,  ti:471279.2,  co:262747.38, ui:208531.82, po:447714.19, tb:447714.2,  pd:447714.2,  nb:0,          ub:0},
+  'Lntecc - 2025 - C-0668':{tp:269302.4,  ti:269302.4,  co:150141.36, ui:119161.04, po:255836.68, tb:255836.68, pd:255836.68, nb:0,          ub:0},
+  'Lntecc - 2025 - C-0823':{tp:5520000,   ti:552000,    co:0,         ui:552000,    po:3204079.46,tb:1458640.57,pd:636603.31, nb:1745438.89, ub:1745438.89},
+  'Lntecc - 2025 - C-0847':{tp:2931440.85,ti:1465720.43,co:0,         ui:1465720.43,po:2530000,   tb:2530000,   pd:0,         nb:0,          ub:0},
+  'Lntecc - 2026 - C-0967':{tp:282282.45, ti:0,         co:0,         ui:0,         po:257512.76, tb:73027.67,  pd:36513.83,  nb:184485.09,  ub:184485.09},
 };
 const MD = {
   'Lntecc - 2024 - C-0494':-225,'Lntecc - 2024 - C-0543':0,
@@ -457,6 +458,7 @@ function buildIndex(){
         <div><div class="m-l">Cash Collected</div><div class="m-v c-g">${fmt(s.co)} SAR</div></div>
         <div><div class="m-l">Paid Out (PO)</div><div class="m-v c-o">${fmt(s.pd)} SAR</div></div>
       </div>
+      ${s.ub>0?`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:7px 10px;border-radius:var(--rs);background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.2)"><span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#a78bfa;text-transform:uppercase;letter-spacing:.8px">Upcoming Billing (VAT Included)</span><span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#a78bfa">${fmtN(s.ub)}</span></div>`:''}
       <div class="pr"><div class="prl"><span>Invoiced</span><span>${ip}%</span></div><div class="pb"><div class="pf pf-g" style="width:${ip}%"></div></div></div>
       <div class="pr"><div class="prl"><span>Collected</span><span>${cp}%</span></div><div class="pb"><div class="pf pf-b" style="width:${cp}%"></div></div></div>
       <div class="pr"><div class="prl"><span>Outflow Paid</span><span>${op}%</span></div><div class="pb"><div class="pf pf-o" style="width:${op}%"></div></div></div>
@@ -484,6 +486,7 @@ function showProject(pid){
       <div class="dhs"><div class="dhs-l">Billed to Vendors</div><div class="dhs-v c-w">${fmtN(s.tb)}</div></div>
       <div class="dhs"><div class="dhs-l">Paid to Vendors</div><div class="dhs-v c-p">${fmtN(s.pd)}</div></div>
       <div class="dhs"><div class="dhs-l">Not Yet Billed</div><div class="dhs-v c-m">${fmtN(s.nb)}</div></div>
+      <div class="dhs" style="background:rgba(167,139,250,.05)"><div class="dhs-l" style="color:#a78bfa">Upcoming Billing (VAT Included)</div><div class="dhs-v" style="color:#a78bfa">${fmtN(s.ub)}</div></div>
     </div>
     <div class="dh-prog">
       <div class="dhp"><div class="dhpl"><span>Invoiced %</span><span>${ip}%</span></div><div class="dhpb"><div class="pf pf-g" style="width:${ip}%"></div></div></div>
@@ -565,7 +568,48 @@ function showProject(pid){
         <thead><tr><th>PO Reference</th><th>Date</th><th>Vendor</th><th>Curr</th><th>Total PO</th><th>Billed</th><th>Not Billed</th><th>Paid</th><th>Billed Unpaid</th><th>Status</th></tr></thead>
         <tbody>${oRows}</tbody>
       </table></div>
-    </div>`;
+    </div>
+    ${s.ub>0?`
+    <div class="sec">
+      <div class="sec-hdr" style="background:rgba(167,139,250,.07);border-bottom-color:rgba(167,139,250,.2)">
+        <div class="si" style="background:rgba(167,139,250,.15)">🧾</div>
+        <div>
+          <div class="sec-ti" style="color:#a78bfa">Upcoming Billing (VAT Included)</div>
+          <div class="sec-ct">Vendor invoices not yet issued — pending VAT acceptance</div>
+        </div>
+      </div>
+      <div class="sec-tots" style="background:rgba(167,139,250,.04);border-bottom-color:rgba(167,139,250,.15)">
+        <div class="st"><div class="st-l">Upcoming Bills Total</div><div class="st-v" style="color:#a78bfa">${fmtN(s.ub)}</div></div>
+        <div class="st"><div class="st-l">% of Total PO</div><div class="st-v" style="color:#a78bfa">${pct(s.ub,s.po)}%</div></div>
+        <div class="st"><div class="st-l">Total PO Value</div><div class="st-v c-o">${fmtN(s.po)}</div></div>
+        <div class="st"><div class="st-l">Already Billed</div><div class="st-v c-w">${fmtN(s.tb)}</div></div>
+      </div>
+      <div style="padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:var(--rs);background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.18)">
+          <div style="font-size:20px">📋</div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#a78bfa;margin-bottom:3px">Total Upcoming Vendor Billing</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#a78bfa">${fmtN(s.ub)}</div>
+          </div>
+          <div style="margin-left:auto;text-align:right">
+            <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3);margin-bottom:4px">These are PO amounts where vendors</div>
+            <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text3)">have not yet submitted invoices (VAT pending)</div>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Billing Coverage</div>
+          <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:100%;width:${pct(s.tb,s.po)}%;background:#f59e0b;border-radius:3px;display:inline-block"></div><div style="height:100%;width:${pct(s.ub,s.po)}%;background:#a78bfa;border-radius:3px;display:inline-block"></div>
+          </div>
+          <div style="display:flex;gap:16px;margin-top:6px;font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--text3)">
+            <span><span style="color:#f59e0b">■</span> Already Billed ${pct(s.tb,s.po)}%</span>
+            <span><span style="color:#a78bfa">■</span> Upcoming ${pct(s.ub,s.po)}%</span>
+            <span><span style="color:var(--text3)">■</span> Paid ${pct(s.pd,s.po)}%</span>
+          </div>
+        </div>
+      </div>
+    </div>`:''}`;
+
 
   document.getElementById('slide-index').classList.remove('active');
   document.getElementById('slide-detail').classList.add('active');
@@ -591,7 +635,7 @@ function exportExcel(){
     ['LNTECC — Project Portfolio Summary','','','','','','','',''],
     ['Generated: ' + new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}),'','','','','','','',''],
     [],
-    ['Project ID','Year','Contract Value (SAR)','Total Invoiced (SAR)','Cash Collected (SAR)','Outstanding (SAR)','Total PO (SAR)','Billed to Vendors (SAR)','Paid to Vendors (SAR)','Not Yet Billed (SAR)','Invoiced %','Collected %','Outflow Paid %','Status']
+    ['Project ID','Year','Contract Value (SAR)','Total Invoiced (SAR)','Cash Collected (SAR)','Outstanding (SAR)','Total PO (SAR)','Billed to Vendors (SAR)','Paid to Vendors (SAR)','Not Yet Billed (SAR)','Upcoming Billing VAT Included (SAR)','Invoiced %','Collected %','Outflow Paid %','Status']
   ];
   const summaryRows = projects.map(p=>{
     const s = SM[p.id]||{};
@@ -599,14 +643,14 @@ function exportExcel(){
     const status = dl<0 ? `Overdue ${Math.abs(dl)} days` : s.ui>0 ? 'Pending' : 'On Track';
     return [
       p.id, p.year,
-      s.tp||0, s.ti||0, s.co||0, s.ui||0, s.po||0, s.tb||0, s.pd||0, s.nb||0,
+      s.tp||0, s.ti||0, s.co||0, s.ui||0, s.po||0, s.tb||0, s.pd||0, s.nb||0, s.ub||0,
       pct(s.ti,s.tp), pct(s.co,s.tp), pct(s.pd,s.po), status
     ];
   });
   // Totals row
   const tot = (k)=>projects.reduce((a,p)=>a+(SM[p.id]?.[k]||0),0);
   summaryRows.push([
-    'TOTAL','',tot('tp'),tot('ti'),tot('co'),tot('ui'),tot('po'),tot('tb'),tot('pd'),tot('nb'),
+    'TOTAL','',tot('tp'),tot('ti'),tot('co'),tot('ui'),tot('po'),tot('tb'),tot('pd'),tot('nb'),tot('ub'),
     pct(tot('ti'),tot('tp')), pct(tot('co'),tot('tp')), pct(tot('pd'),tot('po')), ''
   ]);
 
@@ -614,7 +658,7 @@ function exportExcel(){
 
   // Column widths
   wsSum['!cols'] = [
-    {wch:32},{wch:6},{wch:22},{wch:22},{wch:22},{wch:20},{wch:20},{wch:22},{wch:22},{wch:20},{wch:12},{wch:12},{wch:13},{wch:16}
+    {wch:32},{wch:6},{wch:22},{wch:22},{wch:22},{wch:20},{wch:20},{wch:22},{wch:22},{wch:20},{wch:24},{wch:12},{wch:12},{wch:13},{wch:16}
   ];
   // Merge title row
   wsSum['!merges'] = [
@@ -640,7 +684,8 @@ function exportExcel(){
     sheetData.push(['Metric','Amount (SAR)']);
     [['Contract Value',s.tp],['Total Invoiced',s.ti],['Cash Collected',s.co],
      ['Outstanding Receivables',s.ui],['Total PO Value',s.po],
-     ['Billed to Vendors',s.tb],['Paid to Vendors',s.pd],['Not Yet Billed',s.nb]
+     ['Billed to Vendors',s.tb],['Paid to Vendors',s.pd],['Not Yet Billed',s.nb],
+     ['Upcoming Billing (VAT Included)',s.ub||0]
     ].forEach(([l,v])=>sheetData.push([l, v||0]));
     sheetData.push([]);
 
@@ -714,7 +759,8 @@ function exportProjectExcel(){
   sheetData.push(['Metric','Amount (SAR)']);
   [['Contract Value',s.tp],['Total Invoiced',s.ti],['Cash Collected',s.co],
    ['Outstanding Receivables',s.ui],['Total PO Value',s.po],
-   ['Billed to Vendors',s.tb],['Paid to Vendors',s.pd],['Not Yet Billed',s.nb]
+   ['Billed to Vendors',s.tb],['Paid to Vendors',s.pd],['Not Yet Billed',s.nb],
+   ['Upcoming Billing (VAT Included)',s.ub||0]
   ].forEach(([l,v])=>sheetData.push([l, v||0]));
   sheetData.push([]);
   sheetData.push(['CASH INFLOW — CLIENT INVOICES']);
