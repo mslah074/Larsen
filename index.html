@@ -149,6 +149,8 @@ table{width:100%;border-collapse:collapse;min-width:860px}
 thead th{font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--text3);text-transform:uppercase;
   letter-spacing:.8px;padding:9px 13px;text-align:left;background:var(--thbg);
   border-bottom:1px solid var(--border);white-space:nowrap;position:sticky;top:0;z-index:10}
+tfoot td{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:10px 13px;
+  background:var(--card2);border-top:2px solid var(--border);white-space:nowrap}
 tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:var(--rh)}
@@ -274,13 +276,14 @@ td{padding:9px 13px;font-size:12px;color:var(--text1);white-space:nowrap}
     <div class="eyebrow">Project Dashboard</div>
     <div class="ph">Portfolio Overview</div>
     <div class="ps">7 Active Projects &nbsp;·&nbsp; Click any project card to view full details &nbsp;·&nbsp; Last updated: May 2026</div>
-    <div class="ts">
+    <div class="ts" style="grid-template-columns:repeat(7,1fr)">
       <div class="tc tc-blue"><div class="tc-l">Total Contract Value</div><div class="tc-v">17.53M SAR</div><div class="tc-s">All 7 projects</div></div>
       <div class="tc tc-green"><div class="tc-l">Total Invoiced (In)</div><div class="tc-v">9.20M SAR</div><div class="tc-s">Client invoices issued</div></div>
       <div class="tc tc-teal"><div class="tc-l">Cash Collected</div><div class="tc-v">4.19M SAR</div><div class="tc-s">Actual inflow received</div></div>
       <div class="tc tc-orange"><div class="tc-l">Total PO (Outflow)</div><div class="tc-v">10.64M SAR</div><div class="tc-s">Purchase orders total</div></div>
       <div class="tc tc-red"><div class="tc-l">Outstanding Receivables</div><div class="tc-v">5.01M SAR</div><div class="tc-s">Invoices unpaid by client</div></div>
       <div class="tc tc-purple"><div class="tc-l">Upcoming Billing (VAT Included)</div><div class="tc-v">2.30M SAR</div><div class="tc-s">Vendor bills not yet issued</div></div>
+      <div class="tc" style="--tc-color:#06b6d4"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:#06b6d4"></div><div class="tc-l">Paid to Vendors</div><div class="tc-v" style="color:#06b6d4">4.95M SAR</div><div class="tc-s">Actually paid out</div></div>
     </div>
     <div class="pg" id="pg"></div>
   </div>
@@ -550,6 +553,14 @@ function showProject(pid){
       <div class="tw"><table>
         <thead><tr><th>Invoice #</th><th>Client</th><th>Issue Date</th><th>Due Date</th><th>Amount (SAR)</th><th>Collected (SAR)</th><th>Collection Date</th><th>Outstanding (SAR)</th><th>Status</th><th>Delay</th></tr></thead>
         <tbody>${iRows}</tbody>
+        <tfoot><tr>
+          <td colspan="4" style="color:var(--text2)">TOTAL — ${pi.length} Invoice(s)</td>
+          <td class="c-g">${fmtN(tAm)}</td>
+          <td class="c-p">${fmtN(tCo)}</td>
+          <td>—</td>
+          <td class="c-r">${tDu>0?fmtN(tDu):'—'}</td>
+          <td colspan="2"></td>
+        </tr></tfoot>
       </table></div>
     </div>
     <div class="sec">
@@ -567,6 +578,14 @@ function showProject(pid){
       <div class="tw"><table>
         <thead><tr><th>PO Reference</th><th>Date</th><th>Vendor</th><th>Curr</th><th>Total PO</th><th>Billed</th><th>Not Billed</th><th>Paid</th><th>Billed Unpaid</th><th>Status</th></tr></thead>
         <tbody>${oRows}</tbody>
+        <tfoot><tr>
+          <td colspan="4" style="color:var(--text2)">TOTAL — ${pp.length} PO(s)</td>
+          <td class="c-o">${fmtN(tPO)}</td>
+          <td class="c-w">${tBi>0?fmtN(tBi):'—'}</td>
+          <td class="c-m">${tNB>0?fmtN(tNB):'—'}</td>
+          <td class="c-p">${tPd>0?fmtN(tPd):'—'}</td>
+          <td colspan="2"></td>
+        </tr></tfoot>
       </table></div>
     </div>
     ${s.ub>0?`
